@@ -1,15 +1,17 @@
 #include <iostream>
 #include <boost/program_options.hpp>
 
+namespace po = boost::program_options;
+
 
 int main(int argc, char **argv) {
     try {
         int a_flag = 0;
-        namespace po = boost::program_options;
         po::options_description visible("General options");
         visible.add_options()
                 ("help,h", "Show help")
-                ("A,A", "Stdout of invisible characters (other than whitespaces) in Hexadecimal form");
+                ("show-all,A",
+                 "Show all invisible (except whitespaces) in hexadecimal form");
 
         po::options_description hidden("Hidden options");
         hidden.add_options()
@@ -24,12 +26,12 @@ int main(int argc, char **argv) {
         po::store(po::command_line_parser(argc, argv).options(all).positional(p).run(), vm);
         po::notify(vm);
 
-        std::string usage = "Usage:\n  mycat [-h|--help] [-A] [--files] <file1> <file2> ... <fileN> \n";
+        std::string usage = "Usage:\n  mycat [-h|--help] [-A|--show-all] [--files] <file1> <file2> ... <fileN> \n";
         if (vm.count("help")) {
             std::cout << usage << visible << std::endl;
             return EXIT_SUCCESS;
         }
-        if (vm.count("A")) {
+        if (vm.count("show-all")) {
             a_flag = 1;
         }
         if (vm.count("files")) {
