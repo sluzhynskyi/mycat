@@ -1,8 +1,8 @@
-# Lab 2 Option 3: Adder
+# Lab 2 Mycat
 
 ## Team
 
- - [Volodymyr Chernetskyi](https://github.com/chernetskyi)
+ - [Danylo Sluzhynskyi](https://github.com/sluzhynskyi)
 
 ## Prerequisites
 
@@ -30,9 +30,6 @@ The rest prerequisites (such as development libraries) can be found in the [pack
 ## Usage
 
 ```bash
-add [a] [b]
+mycat [-h|--help] [-A] <file1> <file2> ... <fileN> 
 ```
-
-If less than two numbers provided, zeroes are used instead. If more - an error occurs.
-
 Help flags `-h`/`--help` support is available.
