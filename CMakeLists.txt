@@ -14,7 +14,7 @@ include(cmake/config.cmake)
 # Project source compilation
 include_directories(inc)
 #add_library(operations SHARED src/operations.cpp inc/operations/operations.hpp)
-add_executable(mycat src/main.cpp)
+add_executable(mycat src/main.cpp src/operations_with_files.cpp inc/operations_with_files.hpp)
 #target_link_libraries(add operations)
 
 # Add external packages

@@ -1,5 +1,6 @@
 #include <iostream>
 #include <boost/program_options.hpp>
+#include "operations_with_files.hpp"
 
 namespace po = boost::program_options;
 
