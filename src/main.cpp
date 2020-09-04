@@ -11,8 +11,8 @@ namespace po = boost::program_options;
 
 int main(int argc, char **argv) {
     std::vector<std::string> files;
+    int a_flag = 0;
     try {
-        int a_flag = 0;
         po::options_description visible("General options");
         visible.add_options()
                 ("help,h", "Show help")
@@ -41,13 +41,7 @@ int main(int argc, char **argv) {
             a_flag = 1;
         }
         if (vm.count("files")) {
-            if (a_flag == 1) {
-                std::cout << "Flagged A" << std::endl;
-            }
             files = vm["files"].as<std::vector<std::string> >();
-//            for (auto const &i: vm["files"].as<std::vector<std::string> >()) {
-//                std::cout << i << std::endl;
-//            }
         } else {
             std::cout << usage << std::endl;
             return EXIT_FAILURE;
@@ -70,7 +64,7 @@ int main(int argc, char **argv) {
     }
     for (size_t i = 0; i < files.size(); ++i) {
         stat(files[i].c_str(), &stat_buff);        /* 1 syscall */
-        ssize_t buffer_size = stat_buff.st_size;
+        size_t buffer_size = stat_buff.st_size;
         char *buffer = new char[buffer_size + 1];
         fOut = readbuffer(opened_files[i], buffer, buffer_size, status);
         if (fOut == -1) {
@@ -81,6 +75,17 @@ int main(int argc, char **argv) {
         if (fOut == -1) {
             cout_error(files[i], *status);
             return EXIT_FAILURE;
+        }
+        if (a_flag == 1) {
+            std::string f;
+            char c[11];
+            for (size_t j = 0; j < buffer_size; ++j) {
+                if (!(isprint(buffer[j])) && !(isspace(buffer[j]))) {
+                    snprintf(c, 11, "\\x%02X", buffer[j]);
+                    f += std::string(c);
+                } else { f += buffer[j]; }
+            }
+            buffer = strcpy(new char[f.length() + 1], f.c_str());
         }
         fOut = writebuffer(1, buffer, buffer_size, status);
         if (fOut == -1) {
