@@ -15,7 +15,7 @@ The rest prerequisites (such as development libraries) can be found in the [pack
 
 1. Clone the project.
     ```bash
-    git clone git@github.com:chernetskyi/cpp-template.git
+    git clone https://github.com/sluzhynskyi/mycat.git
     ```
 2. Install required libraries. On Ubuntu:
    ```bash
