@@ -33,11 +33,13 @@ int readbuffer(int fd, char *buffer, ssize_t size, int *status) {
 }
 
 int openfile(const char *file, int flag, int *status) {
+    *status = 1;
     int r = open(file, flag);
     if (r == -1) {
         if (errno == EINTR) {
             r = openfile(file, flag, status);
-        } else if (errno != 0) {
+        }
+        if (errno != 0) {
             *status = errno;
             return -1;
         }
