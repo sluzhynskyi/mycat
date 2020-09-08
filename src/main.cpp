@@ -2,8 +2,7 @@
 #include <boost/program_options.hpp>
 #include "operations_with_files.hpp"
 #include <sys/stat.h>        /* for stat */
-#include <sys/file.h>
-#include <arpa/inet.h>
+#include <sys/file.h> // for flags
 
 void cout_error(std::string f, int *st);
 
@@ -79,10 +78,10 @@ int main(int argc, char **argv) {
         }
         if (a_flag == 1) {
             std::string f;
-            char c[10];
+            char c[5];
             for (size_t j = 0; j < buffer_size; ++j) {
                 if (!(isprint(buffer[j])) && !(isspace(buffer[j]))) {
-                    snprintf(c, 5, "\\x%02X", htonl(buffer[j]));
+                    sprintf(c, "\\x%02X", static_cast<unsigned char>(buffer[j]));
                     f += std::string(c);
                 } else { f += buffer[j]; }
             }
