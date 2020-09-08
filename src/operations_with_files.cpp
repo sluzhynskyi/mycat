@@ -50,9 +50,7 @@ int openfile(const char *file, int flag, int *status) {
 int closefile(int fd, int *status) {
     int r = close(fd);
     if (r == -1) {
-        if (errno == EINTR) {
-            r = closefile(fd, status);
-        } else if (errno != 0) {
+        if (errno != 0) {
             *status = errno;
             return -1;
         }
