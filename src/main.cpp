@@ -4,7 +4,7 @@
 #include <sys/stat.h>        /* for stat */
 #include <sys/file.h> // for flags
 
-void cout_error(std::string f, int *st);
+void cout_error(const std::string& f, const int *st);
 
 namespace po = boost::program_options;
 
@@ -102,7 +102,7 @@ int main(int argc, char **argv) {
 }
 
 
-void cout_error(std::string f, int *st) {
+void cout_error(const std::string& f, const int *st) {
     std::string e = strerror(*st);
     std::cerr << "'" << f << "': " << e << std::endl;
 }
